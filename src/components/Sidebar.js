@@ -61,8 +61,8 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
               key={idx}
               href={item.href}
               className={`flex items-center gap-4 px-4 py-3 rounded-xl transition-all group whitespace-nowrap ${isActive
-                  ? 'bg-[#00ff41]/10 text-[#00ff41] shadow-[0_0_15px_rgba(0,255,65,0.1)] border border-[#00ff41]/20'
-                  : 'text-white/60 hover:bg-[#00ff41]/5 hover:text-[#00ff41]'
+                ? 'bg-[#00ff41]/10 text-[#00ff41] shadow-[0_0_15px_rgba(0,255,65,0.1)] border border-[#00ff41]/20'
+                : 'text-white/60 hover:bg-[#00ff41]/5 hover:text-[#00ff41]'
                 }`}
             >
               <div className={`${isActive ? 'text-[#00ff41]' : 'text-white/60 group-hover:text-[#00ff41]'}`}>
@@ -75,6 +75,29 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
           );
         })}
       </nav>
+
+      {/* Social Links */}
+      <div className="px-4 pb-2">
+        <a
+          href="https://x.com/trenchorbase"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-3 p-3 rounded-xl bg-black/40 border border-[#00ff41]/20 hover:border-[#00ff41] hover:bg-[#00ff41]/10 transition-all group"
+        >
+          <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center group-hover:bg-white/10 transition">
+            {/* X Logo */}
+            <svg className="w-4 h-4 text-white group-hover:text-[#00ff41]" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
+            </svg>
+          </div>
+          {sidebarOpen && (
+            <div className="leading-tight">
+              <div className="text-[#00ff41] font-bold text-xs tracking-wider">FOLLOW US</div>
+              <div className="text-[10px] text-white/50">@trenchorbase</div>
+            </div>
+          )}
+        </a>
+      </div>
 
       {/* Footer Status */}
       <div className="p-4 border-t border-[#00ff41]/10 bg-[#0a0f1a]">
