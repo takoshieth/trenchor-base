@@ -63,7 +63,7 @@ export default function AdminPage() {
   useEffect(() => {
     const checkSession = async () => {
       try {
-        const res = await fetch('/api/admin/session', { cache: 'no-store' });
+        const res = await fetch('/api/admin/session', { cache: 'no-store', credentials: 'include' });
         const data = await res.json();
         if (data.authenticated) {
           setIsAuthenticated(true);
@@ -128,7 +128,7 @@ export default function AdminPage() {
 
   const fetchTokens = async () => {
     try {
-      const res = await fetch('/api/tokens', { cache: 'no-store' });
+      const res = await fetch('/api/tokens', { cache: 'no-store', credentials: 'include' });
       if (!res.ok) throw new Error('Failed to load tokens');
       const data = await safeJson(res);
       setTokens(Array.isArray(data) ? data : []);
@@ -139,7 +139,7 @@ export default function AdminPage() {
 
   const fetchCurrentBlock = async () => {
     try {
-      const res = await fetch('/api/admin/current-block', { cache: 'no-store' });
+      const res = await fetch('/api/admin/current-block', { cache: 'no-store', credentials: 'include' });
       if (res.status === 401) {
         handleUnauthorized();
         return;
@@ -155,7 +155,7 @@ export default function AdminPage() {
 
   const fetchFeatureCampaigns = async () => {
     try {
-      const res = await fetch('/api/admin/feature-campaigns', { cache: 'no-store' });
+      const res = await fetch('/api/admin/feature-campaigns', { cache: 'no-store', credentials: 'include' });
       if (res.status === 401) {
         handleUnauthorized();
         return;
@@ -170,7 +170,7 @@ export default function AdminPage() {
   const fetchTaxCampaigns = async () => {
     try {
       console.log('Fetching tax campaigns...');
-      const res = await fetch('/api/admin/tax-campaigns', { cache: 'no-store' });
+      const res = await fetch('/api/admin/tax-campaigns', { cache: 'no-store', credentials: 'include' });
       console.log('Tax campaigns response status:', res.status);
       if (res.status === 401) {
         handleUnauthorized();
@@ -190,6 +190,7 @@ export default function AdminPage() {
     try {
       const response = await fetch('/api/admin/feature-campaigns', {
         method: 'POST',
+        credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           id: featureForm.id.trim().toLowerCase().replace(/\s+/g, '-'),
@@ -302,7 +303,7 @@ export default function AdminPage() {
   const handleDeleteTaxCampaign = async (id) => {
     if (!confirm(`Delete tax campaign "${id}"?`)) return;
     try {
-      const response = await fetch(`/api/admin/tax-campaigns?id=${id}`, { method: 'DELETE' });
+      const response = await fetch(`/api/admin/tax-campaigns?id=${id}`, { method: 'DELETE', credentials: 'include' });
       if (response.status === 401) {
         handleUnauthorized();
         return;
@@ -325,6 +326,7 @@ export default function AdminPage() {
     try {
       const response = await fetch('/api/admin/run-tax-scan', {
         method: 'POST',
+        credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ campaignId: campaign.id }),
       });
@@ -365,6 +367,7 @@ export default function AdminPage() {
     try {
       const response = await fetch('/api/admin/debug-tax-scan', {
         method: 'POST',
+        credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ campaignId: campaign.id }),
       });
@@ -414,6 +417,7 @@ export default function AdminPage() {
     try {
       const response = await fetch('/api/admin/add-token', {
         method: 'POST',
+        credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           tokenId: formData.tokenId.trim().toLowerCase(),
@@ -459,7 +463,7 @@ export default function AdminPage() {
   const handleDeleteFeatureCampaign = async (id) => {
     if (!confirm(`Delete feature campaign "${id}"?`)) return;
     try {
-      const response = await fetch(`/api/admin/feature-campaigns?id=${id}`, { method: 'DELETE' });
+      const response = await fetch(`/api/admin/feature-campaigns?id=${id}`, { method: 'DELETE', credentials: 'include' });
       if (response.status === 401) {
         handleUnauthorized();
         return;
@@ -480,6 +484,7 @@ export default function AdminPage() {
     try {
       const response = await fetch(`/api/admin/delete-token?tokenId=${tokenId}`, {
         method: 'DELETE',
+        credentials: 'include',
       });
 
       if (response.status === 401) {
@@ -501,6 +506,7 @@ export default function AdminPage() {
     try {
       const response = await fetch('/api/admin/add-token', {
         method: 'POST',
+        credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           tokenId: token.tokenId,
@@ -554,6 +560,7 @@ export default function AdminPage() {
     try {
       const response = await fetch('/api/admin/add-token', {
         method: 'POST',
+        credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           tokenId: editingToken.tokenId,
@@ -598,7 +605,7 @@ export default function AdminPage() {
   // Logout
   const handleLogout = async () => {
     try {
-      await fetch('/api/admin/logout', { method: 'POST' });
+      await fetch('/api/admin/logout', { method: 'POST', credentials: 'include' });
     } finally {
       setIsAuthenticated(false);
       setPassword('');

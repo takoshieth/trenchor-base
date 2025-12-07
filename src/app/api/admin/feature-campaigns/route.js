@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { Redis } from '@upstash/redis';
 
-const COOKIE_NAME = 'admin_auth';
+const COOKIE_NAME = 'ADMIN_PASSWORD';
 const redis = new Redis({
   url: process.env.UPSTASH_REDIS_REST_URL,
   token: process.env.UPSTASH_REDIS_REST_TOKEN,
@@ -14,10 +14,7 @@ const itemKey = (id) => `feature:${id}`;
 async function requireAuth() {
   const cookieStore = await cookies();
   const authCookie = cookieStore.get(COOKIE_NAME);
-  if (authCookie?.value !== 'true') {
-    return false;
-  }
-  return true;
+  return authCookie?.value === process.env.ADMIN_PASSWORD;
 }
 
 export async function GET() {
