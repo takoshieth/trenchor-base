@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { Redis } from '@upstash/redis';
 
-const COOKIE_NAME = 'admin_auth';
+const COOKIE_NAME = 'ADMIN_PASSWORD';
 
 const redis = new Redis({
   url: process.env.UPSTASH_REDIS_REST_URL,
@@ -11,17 +11,18 @@ const redis = new Redis({
 
 export async function GET() {
   try {
-    const authCookie = cookies().get(COOKIE_NAME);
-    if (authCookie?.value !== 'true') {
+    const cookieStore = await cookies();
+    const authCookie = cookieStore.get(COOKIE_NAME);
+    if (authCookie?.value !== process.env.ADMIN_PASSWORD) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
     // Tüm leaderboard verilerini sil
     await redis.del('leaderboard:volume');
-    
+
     // Tüm user key'lerini bul ve sil
     const keys = await redis.keys('user:*');
-    
+
     if (keys && keys.length > 0) {
       await redis.del(...keys);
     }

@@ -31,7 +31,7 @@ export async function GET() {
   try {
     const cookieStore = await cookies();
     const authCookie = cookieStore.get(COOKIE_NAME);
-    if (authCookie?.value !== 'true') {
+    if (authCookie?.value !== process.env.ADMIN_PASSWORD) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
