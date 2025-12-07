@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 
-const COOKIE_NAME = 'admin_auth';
+const COOKIE_NAME = 'ADMIN_PASSWORD';
 
 export async function POST() {
   const response = NextResponse.json({ success: true });

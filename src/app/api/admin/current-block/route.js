@@ -3,7 +3,7 @@ import { cookies } from 'next/headers';
 import { createPublicClient, http } from 'viem';
 import { base } from 'viem/chains';
 
-const COOKIE_NAME = 'admin_auth';
+const COOKIE_NAME = 'ADMIN_PASSWORD';
 
 // Birden fazla RPC kullanarak en güncel bloğu al
 const RPC_ENDPOINTS = [
@@ -39,25 +39,25 @@ export async function GET() {
     const results = await Promise.all(
       RPC_ENDPOINTS.map(rpc => getBlockFromRPC(rpc))
     );
-    
+
     // En yüksek blok numarasını bul
     let maxBlock = BigInt(0);
     let bestRpc = '';
-    
+
     for (const result of results) {
       if (result.blockNumber > maxBlock) {
         maxBlock = result.blockNumber;
         bestRpc = result.rpcUrl;
       }
     }
-    
+
     if (maxBlock === BigInt(0)) {
       return NextResponse.json(
         { success: false, error: 'All RPC endpoints failed' },
         { status: 500 }
       );
     }
-    
+
     return NextResponse.json({
       success: true,
       blockNumber: maxBlock.toString(),

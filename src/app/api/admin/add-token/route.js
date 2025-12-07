@@ -5,7 +5,7 @@ import { createPublicClient, http } from 'viem';
 import { base } from 'viem/chains';
 import { scanToken } from '@/lib/tokenScanner';
 
-const COOKIE_NAME = 'admin_auth';
+const COOKIE_NAME = 'ADMIN_PASSWORD';
 
 const redis = new Redis({
   url: process.env.UPSTASH_REDIS_REST_URL,

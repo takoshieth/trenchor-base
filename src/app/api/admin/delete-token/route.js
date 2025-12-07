@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { Redis } from '@upstash/redis';
 
-const COOKIE_NAME = 'admin_auth';
+const COOKIE_NAME = 'ADMIN_PASSWORD';
 
 const redis = new Redis({
   url: process.env.UPSTASH_REDIS_REST_URL,
@@ -25,22 +25,22 @@ export async function DELETE(request) {
 
     // Token bilgilerini sil
     await redis.del(`token:${tokenId}`);
-    
+
     // Leaderboard'u sil
     await redis.del(`leaderboard:${tokenId}`);
-    
+
     // User verilerini sil
     const userKeys = await redis.keys(`user:${tokenId}:*`);
     if (userKeys && userKeys.length > 0) {
       await redis.del(...userKeys);
     }
-    
+
     // Token listesinden çıkar
     await redis.srem('tokens:list', tokenId);
 
-    return NextResponse.json({ 
-      success: true, 
-      message: `Token "${tokenId}" deleted successfully` 
+    return NextResponse.json({
+      success: true,
+      message: `Token "${tokenId}" deleted successfully`
     });
 
   } catch (error) {
