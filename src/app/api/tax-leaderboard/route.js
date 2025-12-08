@@ -27,6 +27,7 @@ export async function GET(request) {
             name: config.name || campaignId,
             targetToken: config.targetToken,
             taxWallet: config.taxWallet,
+            logoUrl: config.logoUrl ? `/images/${config.logoUrl}` : null,
             totalUsers: parseInt(meta?.totalUsers || '0'),
             totalTaxPaid: meta?.totalTaxPaid || '0.0000',
             lastUpdated: meta?.lastUpdated || null,

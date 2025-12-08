@@ -90,7 +90,7 @@ export default function TaxLeaderboardListPage() {
                   </div>
                   <div className="flex justify-between">
                     <span className="text-white/50">Total Tax:</span>
-                    <span className="text-cyan-400 font-mono">{campaign.totalTax} VIRTUAL</span>
+                    <span className="text-cyan-400 font-mono">{campaign.totalTaxPaid} VIRTUAL</span>
                   </div>
                 </div>
 
