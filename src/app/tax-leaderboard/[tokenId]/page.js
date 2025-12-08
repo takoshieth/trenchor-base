@@ -201,7 +201,6 @@ export default function TaxLeaderboardPage() {
                   <div className="text-white/70 font-mono text-[10px]">
                     {meta.lastUpdated ? new Date(parseInt(meta.lastUpdated)).toLocaleTimeString() : 'N/A'}
                   </div>
-                  </div>
                 </div>
               </div>
             </div>
