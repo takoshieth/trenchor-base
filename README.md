@@ -4,7 +4,6 @@ Advanced crypto trading analytics and campaign management platform on Base Chain
 
 ## Features
 -   **Tax Terminal**: Real-time tax tracking and leaderboards.
--   **Admin Panel**: Manage campaigns, tokens, and features securely.
 -   **Data**: Powered by Upstash Redis for high-speed data persistence.
 -   **Design**: Cyberpunk/Neon aesthetic with Matrix-style backgrounds.
 
@@ -22,5 +21,3 @@ npm install
 npm run dev
 ```
 
-## Security
-Admin access is protected by the `ADMIN_PASSWORD` environment variable.
